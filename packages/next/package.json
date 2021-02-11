@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/next",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "twstyled -- a Next.js plugin for Tailwind CSS and static CSS in JS",
   "license": "MIT",
   "repository": "twstyled/twstyled",
