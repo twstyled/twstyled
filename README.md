@@ -54,6 +54,23 @@ or
 yarn add twstyled  @twstyled/babel-preset
 ```
 
+### Temporary use of linaria fork
+
+Until our linaria enhancements to open the API to wrapper packages like this one are included in linaria upstream, please also add the follow resolutions to your `package.json` and `.npmrc` files in your workspace root  folder to point to our fork of linaria which is published as a Github public npm package
+
+```json
+// package.json
+"resolutions": {
+    "@linaria/babel-preset": "npm:@twstyled/linaria-babel-preset@3.0.0-beta.1",
+    "@linaria/preeval": "npm:@twstyled/linaria-preeval@3.0.0-beta.1"
+  },
+```
+
+```yaml
+# .npmrc
+@twstyled:registry=https://npm.pkg.github.com
+```
+
 ## Usage: installing the Babel preset
 
 Create a `babel.config.js` in your project
@@ -126,7 +143,7 @@ export const HeroHeading = (props) => (
 
 ```jsx
 
-import { styled } from 'twstyled'
+import { styled } from '@twstyled/core'
 
 export const HeroHeading styled.h1`
   @tailwind font-semibold text-3xl md:text-4xl lg:text-5xl not-italic;
@@ -135,7 +152,7 @@ export const HeroHeading styled.h1`
 
 ### Use advanced styled syntax like any other CSS in JS library
 ```jsx
-import { styled } from 'twstyled'
+import { styled } from '@twstyled/core'
 
 export const HeroHeading styled.h1`
   @tailwind font-semibold text-3xl md:text-4xl lg:text-5xl not-italic;
@@ -148,7 +165,7 @@ export const HeroHeading styled.h1`
 
 ### Use standard css syntax like any other CSS in JS library, mix and match CSS and Tailwind code with custom @tailwind rule
 ```jsx
-import { css } from 'twstyled'
+import { css } from '@twstyled/core'
 
 export const styles = {
   heading1: css`@tailwind font-semibold text-3xl md:text-4xl lg:text-5xl not-italic;  /* standard CSS here */ line-height: 1.15;`
@@ -162,7 +179,7 @@ const HeroHeading = (props) => (
 ### React code with deterministic template strings (zero runtime impact)
 
 ```js
-import { tw } from 'twstyled'
+import { tw } from '@twstyled/core'
 
 const mixin = `font-semibold text-3xl`
 
@@ -176,7 +193,7 @@ const HeroHeading = (props) => (
 ### React code with dynamic template strings (automatic conversion to CSS variables)
 
 ```js
-import { tw } from 'twstyled'
+import { tw } from '@twstyled/core'
 
 const special = `font-semibold text-3xl`
 
@@ -246,7 +263,7 @@ const HeroHeadingAdvanced = (props) => {
 is converted to the equivalent of 
 
 ```jsx
-import { css, styled } from 'twstyled'
+import { css, styled } from '@twstyled/core'
 
 const TwCssH1 = styled.h1`
 @tailwind font-semibold text-4xl ${props => props.$cssp1 ? "not-italic" : ""};

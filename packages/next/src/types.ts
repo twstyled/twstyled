@@ -32,8 +32,11 @@ export interface CssLoaderRule {
     }
   }
 }
-export interface CSSConfiguration {
+export interface NextConfiguration {
   module: {
     rules: CssLoaderRule[]
+  }
+  twstyled: {
+    extension: string
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "twstyled",
-  "version": "3.0.6",
-  "description": "twstyled",
+  "name": "@twstyled/core",
+  "version": "3.1.0",
+  "description": "@twstyled/core",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -31,7 +31,7 @@
     "@types/react": "^17.0.1"
   },
   "keywords": [
-    "twstyled",
+    "@twstyled/core",
     "nextjs",
     "tailwindcss",
     "xwind",

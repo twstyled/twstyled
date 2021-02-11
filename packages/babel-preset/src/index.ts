@@ -30,9 +30,9 @@ export default function (babel: ConfigAPI, options: CorePluginOptions) {
           sourceMap: process.env.NODE_ENV !== 'production',
           evaluate: true,
           importMap: {
-            styled: ['twstyled', '@linaria/react', 'linaria/react'],
-            css: ['twstyled', '@linaria/core', 'linaria'],
-            tw: ['twstyled']
+            styled: ['@twstyled/core', '@linaria/react', 'linaria/react'],
+            css: ['@twstyled/core', '@linaria/core', 'linaria'],
+            tw: ['@twstyled/core']
           },
           rules: [
             {

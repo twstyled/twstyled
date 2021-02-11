@@ -1,12 +1,12 @@
 import {
   Context,
-  CSSConfiguration,
   CssLoaderRule,
   LocalIdentName,
+  NextConfiguration,
   Options
 } from './types'
 
-const LINARIA_EXTENSION = '.linaria.module.css'
+const TWSTYLED_MODULE_EXTENSION = '.twstyled.module.css'
 
 /**
  * This is a Next.js plugin that updates webpack postcss options
@@ -15,14 +15,14 @@ const LINARIA_EXTENSION = '.linaria.module.css'
  */
 export default function nextLinaria(nextConfig: any = {}) {
   mergeDefaults(nextConfig, {
-    linaria: {
-      extension: LINARIA_EXTENSION
+    twstyled: {
+      extension: TWSTYLED_MODULE_EXTENSION
     }
   })
 
   return Object.assign({}, nextConfig, {
-    webpack: (config: CSSConfiguration, ...rest: any[]) => {
-      traverse(config.module.rules)
+    webpack: (config: NextConfiguration, ...rest: any[]) => {
+      traverse(config.module.rules, config)
       return nextConfig.webpack(config, ...rest)
     }
   })
@@ -39,7 +39,7 @@ const mergeDefaults = function (opts: any, defaults: any) {
   return opts
 }
 
-function traverse(rules: CssLoaderRule[]) {
+function traverse(rules: CssLoaderRule[], pluginOptions: NextConfiguration) {
   for (const rule of rules) {
     if (typeof rule.loader === 'string' && rule.loader.includes('css-loader')) {
       if (
@@ -54,7 +54,7 @@ function traverse(rules: CssLoaderRule[]) {
           localName: string,
           options: Options
         ) => {
-          if (context.resourcePath.includes(LINARIA_EXTENSION)) {
+          if (context.resourcePath.includes(pluginOptions.twstyled.extension)) {
             return localName
           }
           return nextGetLocalIdent(context, localIdentName, localName, options)
@@ -62,10 +62,10 @@ function traverse(rules: CssLoaderRule[]) {
       }
     }
     if (typeof rule.use === 'object') {
-      traverse(Array.isArray(rule.use) ? rule.use : [rule.use])
+      traverse(Array.isArray(rule.use) ? rule.use : [rule.use], pluginOptions)
     }
     if (Array.isArray(rule.oneOf)) {
-      traverse(rule.oneOf)
+      traverse(rule.oneOf, pluginOptions)
     }
   }
 }

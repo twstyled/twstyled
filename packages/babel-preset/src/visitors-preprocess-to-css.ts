@@ -18,7 +18,12 @@ export default function visitorPreprocessToCss(
 ) {
   const tag = item.node.name.name
 
-  const cssIdentifier = assureImport({ types: t }, state, 'css', 'twstyled')
+  const cssIdentifier = assureImport(
+    { types: t },
+    state,
+    'css',
+    '@twstyled/core'
+  )
 
   const cxClassNameExpression = wrapTemplateLiteral(
     { types: t },

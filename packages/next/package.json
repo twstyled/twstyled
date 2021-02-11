@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/next",
-  "version": "3.0.6",
+  "version": "3.1.0",
   "description": "twstyled -- a Next.js plugin for Tailwind CSS and static CSS in JS",
   "license": "MIT",
   "repository": "twstyled/twstyled",
@@ -27,8 +27,7 @@
     "json5": "^2.2.0",
     "chalk": "^4.1.0",
     "@babel/code-frame": "^7.12.13",
-    "@babel/core": "^7.12.10",
-    "@twstyled/babel-preset": "^3.0.5"
+    "@babel/core": "^7.12.10"
   },
   "devDependencies": {
     "@types/stylis": "^4.0.0",

@@ -12,6 +12,9 @@ import type {
 
 type Core = typeof core
 
+const TWSTYLED_MODULE_EXTENSION = '.twstyled.module.css'
+const TWSTYLED_MODULE_CACHE = './.twstyled-cache'
+
 interface TemplateState extends TemplateStateBase {
   outputFilename: string
   resourceFileName: string
@@ -100,8 +103,8 @@ function transformUrl(
 
 function getOutputNames(state: CorePluginState, options: CorePluginOptions) {
   const {
-    cacheDirectory = './.linaria-cache',
-    extension = '.linaria.module.css'
+    cacheDirectory = TWSTYLED_MODULE_CACHE,
+    extension = TWSTYLED_MODULE_EXTENSION
   } = options || {}
 
   const root = process.cwd()

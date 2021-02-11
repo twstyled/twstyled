@@ -65,7 +65,7 @@ export default function getVisitorsPreprocess(
                 { types: t },
                 state,
                 'css',
-                'twstyled'
+                '@twstyled/core'
               )
 
               item.replaceWith(
@@ -96,7 +96,7 @@ function visitorImportDeclaration(
   path: NodePath<ImportDeclaration>,
   state: CorePluginState
 ) {
-  if (!t.isLiteral(path.node.source, { value: 'twstyled' })) {
+  if (!t.isLiteral(path.node.source, { value: '@twstyled/core' })) {
     return
   }
 

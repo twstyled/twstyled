@@ -37,7 +37,7 @@ export default function visitorPreprocessToStyled(
     { types: t },
     state,
     'styled',
-    'twstyled'
+    '@twstyled/core'
   )
 
   //
