@@ -56,7 +56,7 @@ yarn add twstyled  @twstyled/babel-preset
 
 ### Temporary use of linaria fork
 
-Until our linaria enhancements to open the API to wrapper packages like this one are included in linaria upstream, please also add the follow resolutions to your `package.json` and `.npmrc` files in your workspace root  folder to point to our fork of linaria which is published as a Github public npm package
+Until our linaria enhancements to open the API to wrapper packages like this one are included in linaria upstream, please also add the follow resolutions to your `package.json` file in your workspace root  folder to point to our fork of linaria which is published on npm as [`@twstyled/linaria-babel-preset`](https://www.npmjs.com/package/@twstyled/babel-preset)
 
 ```json
 // package.json
@@ -64,11 +64,6 @@ Until our linaria enhancements to open the API to wrapper packages like this one
     "@linaria/babel-preset": "npm:@twstyled/linaria-babel-preset@3.0.0-beta.1",
     "@linaria/preeval": "npm:@twstyled/linaria-preeval@3.0.0-beta.1"
   },
-```
-
-```yaml
-# .npmrc
-@twstyled:registry=https://npm.pkg.github.com
 ```
 
 ## Usage: installing the Babel preset
