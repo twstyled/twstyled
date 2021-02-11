@@ -30,6 +30,9 @@
     "react": "^17.0.1",
     "@types/react": "^17.0.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "@twstyled/core",
     "nextjs",
