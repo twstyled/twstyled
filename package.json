@@ -1,0 +1,35 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "browserslist": [
+    ">0.25%",
+    "not dead"
+  ],
+  "keywords": [
+    "nextjs",
+    "novela",
+    "mdx",
+    "typescript",
+    "react"
+  ],
+  "scripts": {
+    "clean": "rimraf yarn.lock && rimraf ./**/dist && rimraf {*/,}node_modules",
+    "build": "lerna run build"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@sync-labs/eslint-config": "^2.2.5",
+    "eslint": "^7.17.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.3"
+  },
+  "resolutions": {
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "MIT"
+}
