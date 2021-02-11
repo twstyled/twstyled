@@ -21,8 +21,8 @@ export default function nextLinaria(nextConfig: any = {}) {
   })
 
   return Object.assign({}, nextConfig, {
-    webpack: (config: NextConfiguration, ...rest: any[]) => {
-      traverse(config.module.rules, config)
+    webpack: (config: any, ...rest: any[]) => {
+      traverse(config.module.rules, nextConfig)
       return nextConfig.webpack(config, ...rest)
     }
   })
