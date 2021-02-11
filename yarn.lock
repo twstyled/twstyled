@@ -1123,10 +1123,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@linaria/babel-preset@^3.0.0-beta.1":
+"@linaria/babel-preset@^3.0.0-beta.1", "@linaria/babel-preset@npm:@twstyled/linaria-babel-preset@3.0.0-beta.1":
   version "3.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@linaria/babel-preset/-/babel-preset-3.0.0-beta.1.tgz#7cde6beef40175ab567c6803f1e5022558136dd8"
-  integrity sha512-5ge7RFljNnz2c8EduwAukz+rEQauoDelHqyo5C8TwxhvqFFfx9XOX1ocV3cKx4sCIdoCN7hPkb3JH/DRtzGUrQ==
+  resolved "https://npm.pkg.github.com/download/@twstyled/linaria-babel-preset/3.0.0-beta.1/a2ef0bbae02bf3d42ec2783ab1ae33d76b78a28a3607cd9c2f3ffb5206839091#81be9bdd101942f8dccfb457470ca4e0afe5c76b"
+  integrity sha512-Ujjxo5QM/OkgZRxl1VCaVA72eWmXnjul5Fe5PYOPSoioXOUok4/VhwtBU+mrfrcawIAq8PMD2UK9Ki3e00Shsw==
   dependencies:
     "@babel/generator" ">=7"
     "@babel/plugin-syntax-dynamic-import" ">=7"
@@ -1149,10 +1149,10 @@
   dependencies:
     debug "^4.1.1"
 
-"@linaria/preeval@^3.0.0-beta.1":
+"@linaria/preeval@^3.0.0-beta.1", "@linaria/preeval@npm:@twstyled/linaria-preeval@3.0.0-beta.1":
   version "3.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@linaria/preeval/-/preeval-3.0.0-beta.1.tgz#135a0e970958271a5ae5d1617d5e617212829772"
-  integrity sha512-zbXo7gKUqzeXVOkxftlQu88mGycjl7bkzgFaCd5aMTEAqJMT7PDFDgXt4rfUu+gdXhU0iftBApKakgN1JDQnhA==
+  resolved "https://npm.pkg.github.com/download/@twstyled/linaria-preeval/3.0.0-beta.1/c5cc924a65525633465150d925f29dfff0a1d252a937de9dfa80ef66737be718#57e7113c43169fb4807cd501cff4804338ee8ba9"
+  integrity sha512-20YQn1vVNv9iEVxs+SGBK+IVxen049DfJlLVv1syq4WstulPu8ykm6TZGTPpFNf7Me1iX+3vmvDHUc8+Nj5iWw==
   dependencies:
     "@linaria/babel-preset" "^3.0.0-beta.1"
 

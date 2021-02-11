@@ -16,8 +16,7 @@
     "clean": "rimraf yarn.lock && rimraf ./**/dist && rimraf {*/,}node_modules",
     "build": "lerna run build"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@sync-labs/eslint-config": "^2.2.5",
     "eslint": "^7.17.0",
@@ -26,6 +25,8 @@
     "typescript": "^4.1.3"
   },
   "resolutions": {
+    "@linaria/babel-preset": "npm:@twstyled/linaria-babel-preset@3.0.0-beta.1",
+    "@linaria/preeval": "npm:@twstyled/linaria-preeval@3.0.0-beta.1"
   },
   "private": true,
   "workspaces": [
