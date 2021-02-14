@@ -16,6 +16,7 @@ export interface Colors {
   errorBg: string
   gradient: string
   grey: string
+  headings: string
   horizontalRule: string
   hover: string
   inputBg: string
