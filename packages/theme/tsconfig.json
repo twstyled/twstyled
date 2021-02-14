@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "isolatedModules": true,
+      "jsx": "react",
+      "lib": ["es6", "dom"],
+      "moduleResolution": "node",
+      "baseUrl": ".",
+      "module": "commonjs",
+      "rootDir": "src",
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitReturns": true,
+      "noImplicitThis": true,
+      "noImplicitAny": true,
+      "strict": true,
+      "noUnusedLocals": true,
+      "pretty": true,
+      "skipLibCheck": true,
+      "target": "ES6",
+      "resolveJsonModule": true,
+      "outDir": "dist",
+      "declaration": true,
+      "sourceMap": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+  }
+  

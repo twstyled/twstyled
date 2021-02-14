@@ -1,7 +1,7 @@
 {
-  "name": "@twstyled/core",
-  "version": "3.1.11",
-  "description": "@twstyled/core",
+  "name": "@twstyled/theme",
+  "version": "3.1.7",
+  "description": "@twstyled/theme",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -18,9 +18,7 @@
   ],
   "peerDependencies": {},
   "dependencies": {
-    "@xwind/class-utilities": "^0.8.0",
-    "clsx": "^1.1.1",
-    "@emotion/is-prop-valid": "^1.0.0"
+    "deepmerge": "^4.2.2"
   },
   "devDependencies": {
     "jest": "^26.6.3",
@@ -34,7 +32,7 @@
     "access": "public"
   },
   "keywords": [
-    "@twstyled/core",
+    "twstyled",
     "nextjs",
     "tailwindcss",
     "xwind",

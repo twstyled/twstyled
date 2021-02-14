@@ -7,6 +7,8 @@
 import { FC, createElement, forwardRef } from 'react'
 import validAttr from '@emotion/is-prop-valid'
 import cx from 'clsx'
+import { useTheme } from '@twstyled/theme'
+import type { Theme } from '@twstyled/theme'
 import type { CSSProperties, StyledMeta } from './types'
 
 export type { CSSProperties } from './types'
@@ -80,6 +82,7 @@ function styled(tag: any): any {
     }
 
     const render = (props: any, ref: any) => {
+      const theme = useTheme()
       const { as: component = tag, class: className } = props
       const rest = restOp(props, ['as', 'class'])
       let filteredProps
@@ -100,6 +103,7 @@ function styled(tag: any): any {
       }
 
       filteredProps.ref = ref
+      filteredProps.theme = theme
 
       const { vars, twvars } = options
       let { class: classnames } = options
@@ -177,7 +181,8 @@ type HtmlStyledTag<TName extends keyof JSX.IntrinsicElements> = <
     | ((
         // Without Omit here TS tries to infer TAdditionalProps
         // from a component passed for interpolation
-        props: JSX.IntrinsicElements[TName] & Omit<TAdditionalProps, never>
+        props: JSX.IntrinsicElements[TName] &
+          Omit<TAdditionalProps & { theme: Theme }, never>
       ) => string | number)
   >
 ) => StyledComponent<JSX.IntrinsicElements[TName] & TAdditionalProps>
@@ -191,7 +196,9 @@ type ComponentStyledTag<T> = <
   ...exprs: TrgProps extends { style?: React.CSSProperties }
     ? Array<
         | StaticPlaceholder
-        | ((props: NoInfer<OwnProps & TrgProps>) => string | number)
+        | ((
+            props: NoInfer<OwnProps & TrgProps & { theme: Theme }>
+          ) => string | number)
       >
     : StaticPlaceholder[]
 ) => keyof OwnProps extends never
