@@ -2,12 +2,13 @@ export type ColorMode = 'light' | 'dark'
 
 export interface Colors {
   accent: string
-  brand: string
   articleText: string
   bg: string
+  brand: string
   brandBg: string
   button: string
   buttonBg: string
+  buttonBorder: string
   buttonHover: string
   buttonHoverBg: string
   card: string
@@ -22,6 +23,7 @@ export interface Colors {
   prism: any
   progress: string
   secondary: string
+  secondarygrey: string
   success: string
   track: string
 }
