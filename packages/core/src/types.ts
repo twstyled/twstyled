@@ -22,6 +22,10 @@ declare module 'react' {
     css?: Interpolation
     tw?: Interpolation
   }
+  interface SVGProps<T> {
+    css?: Interpolation
+    tw?: Interpolation
+  }
 }
 
 // Preact support
@@ -29,6 +33,10 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface HTMLAttributes {
+      css?: Interpolation
+      tw?: Interpolation
+    }
+    interface SVGProps {
       css?: Interpolation
       tw?: Interpolation
     }
