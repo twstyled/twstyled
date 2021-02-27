@@ -7,7 +7,7 @@ import initTwClassesUtils, {
   TwClasses,
   TwParsedClass
 } from '@xwind/class-utilities'
-import { CorePluginOptions } from 'src/types'
+import { CorePluginOptions } from '../types'
 
 export default function getTailwindCssGenerator(
   options: CorePluginOptions,

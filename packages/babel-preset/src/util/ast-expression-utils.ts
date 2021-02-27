@@ -9,10 +9,10 @@ import {
   TemplateLiteral,
   Expression,
   SourceLocation,
+  SpreadElement,
   Node
 } from '@babel/types'
 import type babelCore from '@babel/core'
-import { Location } from '@linaria/babel-preset/types'
 import type { CorePluginState } from '../types'
 
 const StarterRegExp = /^\s*(@tailwind)?\s*/
@@ -26,13 +26,8 @@ export function asTemplateLiteral(
     | TaggedTemplateExpression
     | JSXElement
     | JSXFragment
-    | null
-    | undefined
-): TemplateLiteral | undefined {
-  if (!item) {
-    return
-  }
-  let css: TemplateLiteral | undefined
+): TemplateLiteral {
+  let css: TemplateLiteral
 
   if (t.isStringLiteral(item)) {
     css = t.templateLiteral(
@@ -57,9 +52,30 @@ export function asTemplateLiteral(
       throw new Error(
         'Not yet implemented -- object expression in css or tw attribute'
       )
-      return
     } else if (t.isJSXEmptyExpression(item.expression)) {
-      /** noop: leave as undefined */
+      css = t.templateLiteral(
+        [withLoc(t.templateElement({ raw: '', cooked: '' }, true), item.loc)],
+        []
+      )
+    } else if (
+      t.isStringLiteral(item.expression) ||
+      t.isNumericLiteral(item.expression)
+    ) {
+      css = t.templateLiteral(
+        [
+          withLoc(
+            t.templateElement(
+              {
+                raw: `${item.expression.value}`,
+                cooked: `${item.expression.value}`
+              },
+              false
+            ),
+            item.expression.loc
+          )
+        ],
+        []
+      )
     } else {
       css = t.templateLiteral(
         [
@@ -75,8 +91,57 @@ export function asTemplateLiteral(
         [item.expression]
       )
     }
+  } else {
+    throw new Error('unable to transcribe css')
   }
   return css
+}
+
+export function asTemplateLiteralFromArray(
+  { types: t }: { types: typeof babelCore.types },
+  prefix: string,
+  items: Array<Expression | null | SpreadElement>
+): TemplateLiteral {
+  const quasis: TemplateElement[] = []
+  const expressions: Array<Expression> = []
+
+  items.forEach((item) => {
+    if (item === null) {
+      return
+    }
+    if (t.isSpreadElement(item)) {
+      throw new Error('spread element not implemented')
+    }
+
+    quasis.push(
+      withLoc(
+        t.templateElement(
+          {
+            raw: prefix,
+            cooked: prefix
+          },
+          false
+        ),
+        item.loc
+      )
+    )
+    expressions.push(item)
+  })
+  quasis.push(
+    withLoc(
+      t.templateElement(
+        {
+          raw: prefix,
+          cooked: prefix
+        },
+        false
+      ),
+      items[0]!.loc
+    )
+  )
+  quasis[quasis.length - 1].tail = true
+
+  return t.templateLiteral(quasis, expressions)
 }
 
 /**
@@ -100,7 +165,7 @@ export function wrapExpression(
   let result: TaggedTemplateExpression | StringLiteral
 
   if (t.isTaggedTemplateExpression(node)) {
-    result = wrapTemplateLiteral(
+    result = asWrappedTaggedTemplateExpression(
       { types: t },
       node.quasi,
       tag,
@@ -136,7 +201,7 @@ export function wrapExpression(
     const expression = node.expression
 
     if (t.isTemplateLiteral(expression)) {
-      result = wrapTemplateLiteral(
+      result = asWrappedTaggedTemplateExpression(
         { types: t },
         expression,
         tag,
@@ -147,7 +212,7 @@ export function wrapExpression(
       t.isTaggedTemplateExpression(expression) &&
       (expression.tag as Identifier).name === tag
     ) {
-      result = wrapTemplateLiteral(
+      result = asWrappedTaggedTemplateExpression(
         { types: t },
         expression.quasi,
         tag,
@@ -201,10 +266,9 @@ function replaceQuasi(
   return { raw, cooked }
 }
 
-export function wrapTemplateLiteral(
+export function prefixTemplateLiteral(
   { types: t }: { types: typeof babelCore.types },
   templateLiteral: TemplateLiteral,
-  tag: string,
   startReplacement: string,
   endReplacement: string
 ) {
@@ -230,12 +294,27 @@ export function wrapTemplateLiteral(
     quasis[quasis.length - 1].loc
   )
 
-  return t.taggedTemplateExpression(
-    t.identifier(tag),
-    t.templateLiteral(quasis, templateLiteral.expressions)
-  )
+  return t.templateLiteral(quasis, templateLiteral.expressions)
 }
 
+function asWrappedTaggedTemplateExpression(
+  { types: t }: { types: typeof babelCore.types },
+  templateLiteral: TemplateLiteral,
+  tag: string,
+  startReplacement: string,
+  endReplacement: string
+) {
+  return t.taggedTemplateExpression(
+    t.identifier(tag),
+    prefixTemplateLiteral(
+      { types: t },
+      templateLiteral,
+      startReplacement,
+      endReplacement
+    )
+  )
+}
+declare const window: any
 /**
  * Utility function to wrap a given expression that might appear in a JSX tag
  * <Component twstyled="bg-blue-500" /> or <Component twstyled="{`bg-blue-500 ${mixin}`}" />  etc.
@@ -301,26 +380,27 @@ export function combineExpressions(
       )
       templateLiteral.loc = rightExpression.loc
       return t.jSXExpressionContainer(templateLiteral)
+    } else if (t.isJSXEmptyExpression(rightExpression)) {
+      // 5. taggedtemplate - empty
+      return t.jSXExpressionContainer(leftExpression)
     } else {
-      if (t.isJSXEmptyExpression(rightExpression)) {
-        // 5. taggedtemplate - empty
-        return t.jSXExpressionContainer(leftExpression)
-      } else {
-        // 6. taggedtemplate - JSX
-        const templateLiteral = t.templateLiteral(
-          [
-            withLoc(t.templateElement({ raw: '' }, false), leftExpression.loc),
-            withLoc(t.templateElement({ raw: ' ' }, false), leftExpression.loc),
-            withLoc(t.templateElement({ raw: '' }, true), rightExpression.loc)
-          ],
-          [
-            leftExpression as TaggedTemplateExpression,
-            rightExpression.expression as Expression
-          ]
-        )
-        templateLiteral.loc = rightExpression.loc
-        return t.jSXExpressionContainer(templateLiteral)
-      }
+      // 6. taggedtemplate - JSXExpressionContainer
+      const templateLiteral = t.templateLiteral(
+        [
+          withLoc(t.templateElement({ raw: '' }, false), leftExpression.loc),
+          withLoc(
+            t.templateElement({ raw: ' ', cooked: ' ' }, false),
+            leftExpression.loc
+          ),
+          withLoc(t.templateElement({ raw: '' }, true), rightExpression.loc)
+        ],
+        [
+          leftExpression as TaggedTemplateExpression,
+          rightExpression.expression as Expression
+        ]
+      )
+      templateLiteral.loc = rightExpression.loc
+      return t.jSXExpressionContainer(templateLiteral)
     }
   }
 }
@@ -364,7 +444,10 @@ export function assureImport(
   return localIdentifier
 }
 
-function withLoc<T extends Node>(element: T, loc: SourceLocation | null) {
-  element.loc = loc
+export function withLoc<T extends Node>(
+  element: T,
+  loc: SourceLocation | null
+) {
+  element.loc = { start: loc?.start!, end: loc?.end! }
   return element
 }

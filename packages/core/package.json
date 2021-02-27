@@ -11,7 +11,9 @@
   "engines": {
     "node": ">= 10.13.0"
   },
-  "scripts": {},
+  "scripts": {
+    "generate": "tsc && node ./dist/scripts/generate-attributes && tsc"
+  },
   "files": [
     "dist",
     "js.js"

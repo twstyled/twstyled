@@ -1,3 +1,5 @@
+import { TailwindAttributes } from './types-tw'
+
 export interface CSSProperties {
   [key: string]: string | number | CSSProperties
 }
@@ -18,10 +20,12 @@ export type Interpolation =
   | TemplateStringsArray
 
 declare module 'react' {
-  interface HTMLAttributes<T> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface HTMLAttributes<T> extends Partial<TailwindAttributes> {
     css?: Interpolation
     tw?: Interpolation
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface SVGProps<T> {
     css?: Interpolation
     tw?: Interpolation
@@ -32,7 +36,7 @@ declare module 'react' {
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
-    interface HTMLAttributes {
+    interface HTMLAttributes extends Partial<TailwindAttributes> {
       css?: Interpolation
       tw?: Interpolation
     }

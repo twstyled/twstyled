@@ -16,8 +16,11 @@ import {
   State
 } from '@linaria/babel-preset'
 import type core from '@babel/core'
+
 import getVisitorsPrepareTw, {
-  getVisitorsPreprocessorJsx
+  getVisitorsPreprocessorJsx,
+  getVisitorsPreprocessorTw$,
+  getVisitorsPreprocessorTwVariant$
 } from './visitors-preprocess'
 import getVisitorsWriteCss from './visitors-write-css'
 import getVisitorsWriteTwCss from './visitors-write-css-tailwind'
@@ -26,6 +29,7 @@ import getStylisTransformTailwind from './stylis-transform-css-tailwind'
 import getStylisTransformCss from './stylis-transform-css'
 
 import { CorePluginOptions, CorePluginState } from './types'
+import getTailwindAttributes from './util/tailwind-utils-get-classes'
 
 type Core = typeof core
 
@@ -51,9 +55,25 @@ export default function (
     getStylisTransformCss(babel, options)
   ])
 
-  options.jsxPreprocessors = options.jsxPreprocessors || {
+  const [twAttributes, twVariants] = getTailwindAttributes(options)
+  const Tw$ = getVisitorsPreprocessorTw$(babel, options)
+  const twAttributeProcessors = twAttributes.reduce((accum, key) => {
+    accum[`${key}-`] = Tw$
+    return accum
+  }, {} as any)
+
+  const TwVariant$ = getVisitorsPreprocessorTwVariant$(babel, options)
+  const twVariantProcessors = twVariants.reduce((accum, key) => {
+    accum[`${key}--`] = TwVariant$
+    return accum
+  }, {} as any)
+
+  options.jsxPreprocessors = {
     css: getVisitorsPreprocessorJsx(babel, options),
-    tw: getVisitorsPreprocessorJsx(babel, options)
+    tw: getVisitorsPreprocessorJsx(babel, options),
+    ...twAttributeProcessors,
+    ...twVariantProcessors,
+    ...(options.jsxPreprocessors || {})
   }
 
   const { visitor: visitorLinaria } = (pluginBase(

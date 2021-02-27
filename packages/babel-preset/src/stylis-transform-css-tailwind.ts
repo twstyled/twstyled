@@ -96,8 +96,6 @@ export default function getStylisTransformTailwind(
             ? cx(templateState.className, twclasses)
             : cx(twclasses)
       }
-
-      return undefined
     }
   } as StylisMiddleware<TemplateStateBase>
 }

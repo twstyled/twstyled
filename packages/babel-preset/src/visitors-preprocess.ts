@@ -12,7 +12,13 @@ import type {
 } from '@babel/types'
 import type { NodePath } from '@babel/traverse'
 import type { CorePluginOptions, CorePluginState } from './types'
-import { wrapExpression, assureImport, asTemplateLiteral } from './util'
+import {
+  wrapExpression,
+  assureImport,
+  asTemplateLiteral,
+  prefixTemplateLiteral,
+  asTemplateLiteralFromArray
+} from './util'
 import visitorPreprocessToCss from './visitors-preprocess-to-css'
 import visitorPreprocessToStyled from './visitors-preprocess-to-styled'
 
@@ -130,16 +136,22 @@ export function getVisitorsPreprocessorJsx(
 ) {
   return (item: NodePath<JSXAttribute>, state: CorePluginState) => {
     const tag = item.node.name.name
+    console.log(tag, item.node.value)
+
     if (tag !== 'tw' && tag !== 'css') {
       return
     }
 
-    const css: TemplateLiteral | undefined = asTemplateLiteral(
-      { types: t },
-      item.node.value
-    )
+    if (!item.node.value) {
+      return
+    }
 
-    if (!css) return
+    const css: TemplateLiteral = prefixTemplateLiteral(
+      { types: t },
+      asTemplateLiteral({ types: t }, item.node.value),
+      tag === 'tw' ? '@tailwind ' : '',
+      tag === 'tw' ? ';' : ''
+    )
 
     const requiresComponent =
       css.expressions.length > 0 &&
@@ -153,5 +165,79 @@ export function getVisitorsPreprocessorJsx(
     } else {
       return visitorPreprocessToCss({ types: t }, item, state, css)
     }
+  }
+}
+
+export function getVisitorsPreprocessorTw$(
+  { types: t }: { types: typeof babelCore.types },
+  options: CorePluginOptions
+) {
+  return (item: NodePath<JSXAttribute>, state: CorePluginState) => {
+    const tag: string = (item.node.name.name as string).replace(/[-\$]$/, '')
+    let css: TemplateLiteral
+
+    if (!item.node.value) {
+      css = asTemplateLiteral(
+        { types: t },
+        t.stringLiteral(`@tailwind ${tag};`)
+      )
+    } else if (
+      t.isJSXExpressionContainer(item.node.value) &&
+      t.isUnaryExpression(item.node.value.expression) &&
+      item.node.value.expression.operator === '-' &&
+      t.isNumericLiteral(item.node.value.expression.argument)
+    ) {
+      css = asTemplateLiteral(
+        { types: t },
+        t.stringLiteral(
+          `@tailwind -${tag}-${item.node.value.expression.argument.value};`
+        )
+      )
+    } else {
+      css = prefixTemplateLiteral(
+        { types: t },
+        asTemplateLiteral({ types: t }, item.node.value),
+        `@tailwind ${tag}-`,
+        ';'
+      )
+    }
+
+    return visitorPreprocessToCss({ types: t }, item, state, css)
+  }
+}
+
+export function getVisitorsPreprocessorTwVariant$(
+  { types: t }: { types: typeof babelCore.types },
+  options: CorePluginOptions
+) {
+  return (item: NodePath<JSXAttribute>, state: CorePluginState) => {
+    const tag: string = (item.node.name.name as string).replace(/[-\$]*$/, '')
+    let css: TemplateLiteral
+
+    if (
+      item.node.value &&
+      t.isJSXExpressionContainer(item.node.value) &&
+      item.node.value.expression &&
+      t.isArrayExpression(item.node.value.expression)
+    ) {
+      css = asTemplateLiteralFromArray(
+        { types: t },
+        tag === 'tw' ? ' ' : ` ${tag}:`,
+        [...item.node.value.expression.elements]
+      )
+      css.quasis[0].value.raw = `@tailwind${css.quasis[0].value.raw}`
+      css.quasis[0].value.cooked = css.quasis[0].value.raw
+      css.quasis[css.quasis.length - 1].value.raw = `${
+        css.quasis[css.quasis.length - 1].value.raw
+      };`
+      css.quasis[css.quasis.length - 1].value.cooked =
+        css.quasis[css.quasis.length - 1].value.raw
+    } else {
+      throw new Error(
+        `inline Tailwind variant ${tag} must be an array expression`
+      )
+    }
+
+    return visitorPreprocessToCss({ types: t }, item, state, css)
   }
 }

@@ -2,32 +2,19 @@ import {
   JSXAttribute,
   JSXOpeningElement,
   StringLiteral,
-  JSXExpressionContainer,
-  TemplateLiteral
+  JSXExpressionContainer
 } from '@babel/types'
 import type babelCore from '@babel/core'
 import type { NodePath } from '@babel/traverse'
 import type { CorePluginState } from './types'
-import { combineExpressions, assureImport } from './util'
+import { combineExpressions } from './util'
 
-export default function visitorPreprocessToCss(
+export default function visitorPreprocessToClass(
   { types: t }: { types: typeof babelCore.types },
   item: NodePath<JSXAttribute>,
   state: CorePluginState,
-  css: TemplateLiteral
+  value: StringLiteral
 ) {
-  const cssIdentifier = assureImport(
-    { types: t },
-    state,
-    'css',
-    '@twstyled/core'
-  )
-
-  const cxClassNameExpression = t.taggedTemplateExpression(
-    t.identifier(cssIdentifier.name),
-    css
-  )
-
   // Check if a className props already exists
   const classNameAttribute:
     | JSXAttribute
@@ -40,11 +27,7 @@ export default function visitorPreprocessToCss(
     (classNameAttribute?.value as StringLiteral | JSXExpressionContainer) ||
     t.stringLiteral('')
 
-  const result = combineExpressions(
-    { types: t },
-    cxClassNameExpression,
-    rightExpression
-  )
+  const result = combineExpressions({ types: t }, value, rightExpression)
 
   item.remove()
 
