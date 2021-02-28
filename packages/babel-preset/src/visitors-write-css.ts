@@ -26,7 +26,7 @@ export default function babelPluginWriteCss(
           const cached = cache.get(filename)
           if (cached && cached.hash === hash) {
             if (cached.cssFilename) {
-              const importUseStyling = template.ast`require('${cached.cssFilename}')`
+              const importUseStyling = template.ast`import '${cached.cssFilename}';`
               nodePath.unshiftContainer('body', importUseStyling)
             }
             return
@@ -46,7 +46,7 @@ export default function babelPluginWriteCss(
               hash: state.hash,
               cssFilename: state.file.metadata.cssFilename
             })
-            const importUseStyling = template.ast`require('${state.file.metadata.cssFilename}')`
+            const importUseStyling = template.ast`import '${state.file.metadata.cssFilename}';`
             nodePath.unshiftContainer('body', importUseStyling)
           }
         }
