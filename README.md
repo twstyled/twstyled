@@ -46,6 +46,10 @@ You may have encountered some of these problems when using [Tailwind CSS](https:
 - [x] Complementary Next.js plugin allows the CSS files to be included directly from each component without requiring changes to _app or _document for CSS in JS code and without requiring a slower webpack loader
 - [x] Babel plugin contains no Next.js, React or other framework specific code and can be re-used in any module bundler or framework
 - [x] Support Tailwind properties directly on React component with full typeahead and hover support
+- [x] Plugin for Babel
+- [x] Plugin for Rollup
+- [x] Plugin for Next.js
+- [x] Plugin for Vite
 
 ## Installation
 
@@ -322,8 +326,8 @@ const HeroHeadingAdvanced = (props) => (
 - [xwind](https://github.com/Arthie/xwind) The inspiration and embedded logic for the Tailwind CSS processing; chosen because it was the best build-time solution and relied on the standard Tailwind CSS packages instead of recreating it; we do not use the actual xwind package here but instead use the smaller and more focused [@xwind/core](https://github.com/Arthie/xwind/tree/master/packages/core) and [@xwind/class-utilities](https://github.com/Arthie/xwind/tree/master/packages/class-utilities) packages.  The xwind solution does not at time of development include a build time CSS in JS capabilty, does not support dedicated `tw=` JSX attribute and has not split out the import package, babel and webpack plugins
 - [twind](https://github.com/tw-in-js/twind)  Was the smallest, fastest, most feature complete Tailwind-in-JS solution, but we now believe this solution `twstyled` is smaller (zero runtime in most cases), faster (no evaluation at runtime), and more feature complete (custom `tw` and `css` )
 - [linaria](https://github.com/callstack/linaria) A build time CSS-in-JS solution that has one of the best pre-evaluation capabiltiies we've seen in a Babel plugin;   we re-use a lot of the Linaria logic, but provide a thin wrapper over it to handle Tailwind classes, and also provide a new `css` attribute similar to emotion and styled-components but missing in Linaria, and to allow all the CSS generation to happen in the Babel plugin instead of reparsing each source file in a separate Webpack loader.  We had to expose the API of Linaria a bit to accomplish this and have added our contributions to the core linaria package
+- [Windi CSS](https://github.com/windicss/windicss) Windi CSS is a well-written, well-documented rewrite of Tailwind CSS that generates CSS dynamically.   It's a good alternative to twstyled but is focused on scanning HTML and CSS files and has rewritten the generation from scratch, whereas twstyled is scans the abstract syntax tree of your components and generates the exact same CSS that tailwindcss does, thus avoiding the risk of upstream sync issues, and additionally brings all the benefits of a CSS in JS solution.    We are React-ready out of the box and use a highly efficient Babel parser that plugs right into rollup, webpack, Next.js vite, esbuild and many other build pipelines.
 - [Tailwind CSS](https://tailwindcss.com/) The inspiration for `twstyled` and the actual source of the CSS used for each class;  the vanilla implementation requires PostCSS purge processing which is less efficient as it uses string parsing and does not make use of the AST parsing that all bundlers include anyway 
-
 
 ## License
 

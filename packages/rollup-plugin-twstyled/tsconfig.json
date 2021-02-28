@@ -1,13 +1,12 @@
-{
+{    
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["ES6", "DOM"],
+    "lib": ["es6"],
     "baseUrl": ".",
     "module": "commonjs",
     "rootDir": "src",
     "target": "ES6",
-    "outDir": "dist",
-    "sourceMap": false,
+    "outDir": "dist"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

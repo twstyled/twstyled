@@ -74,5 +74,6 @@ function writeCss(state: CorePluginState, options: CorePluginOptions) {
     mkdirp.sync(path.dirname($cssFileName))
     doneMkdir = true
   }
+  console.log(`Writing to ${$cssFileName}`)
   fs.writeFileSync($cssFileName, cssText)
 }

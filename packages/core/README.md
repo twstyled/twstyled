@@ -1,6 +1,6 @@
 # Tailwind + CSS in JS
 
-Full featured [Tailwind](https://tailwindcss.com/) with CSS in JS support, with blazing fast build and runtime performance
+Full featured [Tailwind](https://tailwindcss.com/) compiler with CSS in JS support, with blazing fast build and runtime performance
 
 ## Why does this exist
 
@@ -14,6 +14,10 @@ You may have encountered some of these problems when using [Tailwind CSS](https:
 - No logic support to allow loops, conditionals, variables, state-based styling, and more
 - No built in theming support
 - No dedicated string support in React classes `<MyComponent tw="bg-blue-500" />`
+- No dedicate properties in React classes `<MyComponent bg-blue-500- >`
+- No styled-system-like shorthands `<MyComponent bg-="blue-500" >`
+- No IDE support typeahead and hover hints for tailwind properties
+- No easy pathway if coming from `styled-system`
 - Adding a CSS in JS solution like Emotion or Style-Components brings runtime bloat and poorer performance
 - Compile time CSS in JS solutions do not have simple inline support `<MyComponent css="line-height: 1.15;" /> and do not support Tailwind `<div tw="bg-blue-500" css="line-height: 1.15;" />`
 - Custom Tailwind CSS in JS solutions reimplement Tailwind CSS and so do not keep up to date with Tailwind CSS releases or all the standard plugins
@@ -33,6 +37,7 @@ You may have encountered some of these problems when using [Tailwind CSS](https:
 - [x] Mix and match Tailwind classnames and regular CSS
 - [x] When using React, adds new JSX properties `tw=` and `css=` to inline Tailwind directly in the component, with full variable / logic support
 - [x] Zero runtime when using inline styles, and 1.59Kb runtime (GZip compressed) when using styled components with dynamic variables based on properties only known at runtime
+- [x] Great developer experience with Typescript definitions for every Tailwind property
 - [ ] Great developer experience with VS Code extension
 - [x] No dependency on [xwind](https://github.com/Arthie/xwind/tree/master/packages/xwind) package
 - [x] Encapsulates all build time logic into a single Babel plugin [@twstyled/babel-preset](https://www.npmjs.com/package/@twstyled/babel-preset)
@@ -40,7 +45,11 @@ You may have encountered some of these problems when using [Tailwind CSS](https:
 - [x] Writes generated css directly from the single Babel plugin with no webpack or bundler plugin required
 - [x] Complementary Next.js plugin allows the CSS files to be included directly from each component without requiring changes to _app or _document for CSS in JS code and without requiring a slower webpack loader
 - [x] Babel plugin contains no Next.js, React or other framework specific code and can be re-used in any module bundler or framework
-- [ ] Support CSS-IN-JS object mode with `import tw from 'twstyled/js'`
+- [x] Support Tailwind properties directly on React component with full typeahead and hover support
+- [x] Plugin for Babel
+- [x] Plugin for Rollup
+- [x] Plugin for Next.js
+- [x] Plugin for Vite
 
 ## Installation
 
@@ -54,7 +63,7 @@ or
 yarn add twstyled  @twstyled/babel-preset
 ```
 
-### Temporary use of linaria fork
+### Use of linaria fork
 
 Until our linaria enhancements to open the API to wrapper packages like this one are included in linaria upstream, please also add the follow resolutions to your `package.json` file in your workspace root  folder to point to our fork of linaria which is published on npm as [`@twstyled/linaria-babel-preset`](https://www.npmjs.com/package/@twstyled/babel-preset)
 
@@ -133,6 +142,37 @@ export const HeroHeading = (props) => (
   />
 )
 ```
+
+This is the recommended approach if you want to share your components with other developers, as the string format is 100% compatible with any Tailwind implementation. 
+
+### Alternative react code, still with no extra imports required
+
+If you find these strings long and hard to read, you might prefer to have Tailwind utilities directly on the React classes. Every Tailwind class can be used as a (boolean) property directly on the React component, with a suffix of `-` to keep
+all Tailwind classes visually and logically distinct from your own properties.  Negative properties should use the JSX Expression format below as it would otherwise be hard to see all these minus signs.   Variants like `hover:`, `focus:` and screen hints are all supported using an array format and a suffix of `--` again just to keep these visually distinct.
+
+``` tsx
+export const HeroHeading = (props) => (
+  <h1 font-semibold- text-3xl- md--={['text-4xl']} lg--={['text-5xl']} not-italic->
+    {...props}
+  />
+)
+```
+
+### JSX Expression (Styled-system-like) react code, still with no extra imports required
+
+Every Tailwind class can be used as a prefix and a value property directly on the React component, with a suffix of `-` to keep all Tailwind classes visually and logically distinct from your own properties.
+
+``` tsx
+export const HeroHeading = (props) => (
+  <h1 m-={-2} px-={3} font-={theme.fonts.headings} text-="3xl" md--:{['text-4xl']} lg--:{['text-5xl']} not-italic- >
+    {...props}
+  />
+)
+```
+
+Note how you can mix and match any of these formats together.
+
+We recommend this option in all cases that you want to add a small number of style overrides for a given component.  One advantage in the IDE and in code excerpts in blogs, is that you can quickly distinguish the type of style override from the actual value of style override.  It is also useful if you are converting another library that has used styled system.
 
 ### Use standard styled syntax like any other CSS in JS library, mix and match CSS and Tailwind code with custom @tailwind rule
 
@@ -287,7 +327,7 @@ const HeroHeadingAdvanced = (props) => (
 - [twind](https://github.com/tw-in-js/twind)  Was the smallest, fastest, most feature complete Tailwind-in-JS solution, but we now believe this solution `twstyled` is smaller (zero runtime in most cases), faster (no evaluation at runtime), and more feature complete (custom `tw` and `css` )
 - [linaria](https://github.com/callstack/linaria) A build time CSS-in-JS solution that has one of the best pre-evaluation capabiltiies we've seen in a Babel plugin;   we re-use a lot of the Linaria logic, but provide a thin wrapper over it to handle Tailwind classes, and also provide a new `css` attribute similar to emotion and styled-components but missing in Linaria, and to allow all the CSS generation to happen in the Babel plugin instead of reparsing each source file in a separate Webpack loader.  We had to expose the API of Linaria a bit to accomplish this and have added our contributions to the core linaria package
 - [Tailwind CSS](https://tailwindcss.com/) The inspiration for `twstyled` and the actual source of the CSS used for each class;  the vanilla implementation requires PostCSS purge processing which is less efficient as it uses string parsing and does not make use of the AST parsing that all bundlers include anyway 
-
+- [Windi CSS](https://github.com/windicss/windicss) Windi CSS is a well-written, well-documented rewrite of Tailwind CSS that generates CSS dynamically.   It's a good alternative to twstyled but is focused on scanning HTML and CSS files and has rewritten the generation from scratch, whereas twstyled is scans the abstract syntax tree of your components and generates the exact same CSS that tailwindcss does, thus avoiding the risk of upstream sync issues, and additionally brings all the benefits of a CSS in JS solution.    We are React-ready out of the box and use a highly efficient Babel parser that plugs right into rollup, webpack, Next.js vite, esbuild and many other build pipelines.
 
 ## License
 

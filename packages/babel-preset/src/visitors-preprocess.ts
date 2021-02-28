@@ -136,7 +136,6 @@ export function getVisitorsPreprocessorJsx(
 ) {
   return (item: NodePath<JSXAttribute>, state: CorePluginState) => {
     const tag = item.node.name.name
-    console.log(tag, item.node.value)
 
     if (tag !== 'tw' && tag !== 'css') {
       return

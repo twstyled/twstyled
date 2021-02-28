@@ -1,7 +1,7 @@
 {
-  "name": "@twstyled/theme",
+  "name": "next-plugin-twstyled",
   "version": "3.2.0",
-  "description": "@twstyled/theme",
+  "description": "twstyled -- a Next.js plugin for Tailwind CSS and static CSS in JS",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -15,14 +15,12 @@
     "build": "tsc"
   },
   "files": [
-    "dist",
-    "js.js"
+    "dist"
   ],
   "peerDependencies": {
-    "react": "^17.0.1"
+    "webpack": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2"
   },
   "devDependencies": {
   },
@@ -30,10 +28,9 @@
     "access": "public"
   },
   "keywords": [
-    "twstyled",
+    "webpack",
     "nextjs",
     "tailwindcss",
-    "xwind",
     "linaria",
     "babel",
     "novela"

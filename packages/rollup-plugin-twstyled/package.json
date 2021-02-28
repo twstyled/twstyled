@@ -1,7 +1,7 @@
 {
-  "name": "@twstyled/theme",
+  "name": "rollup-plugin-twstyled",
   "version": "3.2.0",
-  "description": "@twstyled/theme",
+  "description": "twstyled -- a rollup plugin for Tailwind CSS and compiled CSS in JS",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -15,25 +15,22 @@
     "build": "tsc"
   },
   "files": [
-    "dist",
-    "js.js"
+    "dist"
   ],
   "peerDependencies": {
-    "react": "^17.0.1"
+    "rollup": "^2.40.0"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2"
+    "vite-plugin-twstyled": "^3.2.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
+    "rollup",
     "twstyled",
-    "nextjs",
     "tailwindcss",
-    "xwind",
     "linaria",
     "babel",
     "novela"

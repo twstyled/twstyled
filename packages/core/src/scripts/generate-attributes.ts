@@ -170,7 +170,7 @@ ${([] as string[])
   .join('\r\n')}
 }`
 
-fs.writeFileSync(path.resolve(__dirname, '../../src/types-tw.ts'), result)
+fs.writeFileSync(path.resolve(__dirname, '../../../src/types-tw.ts'), result)
 
 /** HELPER FUNCTIONS */
 
