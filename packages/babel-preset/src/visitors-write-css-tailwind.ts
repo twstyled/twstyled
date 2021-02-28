@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import { NodePath, types } from '@babel/core'
 import mkdirp from 'mkdirp'
 import { composer } from '@xwind/class-utilities'
-import { getTwConfigCache, getTwConfigPath } from './config-options'
+import { getTwConfigCache, getTwConfigPath } from '@twstyled/util'
 import { getHash, getTailwindCssGenerator } from './util'
 import type { CorePluginOptions, CorePluginState } from './types'
 
@@ -74,6 +74,5 @@ function writeCss(state: CorePluginState, options: CorePluginOptions) {
     mkdirp.sync(path.dirname($cssFileName))
     doneMkdir = true
   }
-  console.log(`Writing to ${$cssFileName}`)
   fs.writeFileSync($cssFileName, cssText)
 }

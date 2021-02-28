@@ -1,6 +1,6 @@
 import initClassUtilities from '@xwind/class-utilities'
 import core from '@xwind/core'
-import { getTwConfigCache, getTwConfigPath } from '../config-options'
+import { getTwConfigCache, getTwConfigPath } from '@twstyled/util'
 import type { CorePluginOptions, CorePluginState } from '../types'
 
 export type TransformerTwCss = (

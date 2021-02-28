@@ -17,6 +17,7 @@ import {
 } from '@linaria/babel-preset'
 import type core from '@babel/core'
 
+import { getTailwindAttributes } from '@twstyled/util'
 import getVisitorsPrepareTw, {
   getVisitorsPreprocessorJsx,
   getVisitorsPreprocessorTw$,
@@ -29,7 +30,6 @@ import getStylisTransformTailwind from './stylis-transform-css-tailwind'
 import getStylisTransformCss from './stylis-transform-css'
 
 import { CorePluginOptions, CorePluginState } from './types'
-import getTailwindAttributes from './util/tailwind-utils-get-classes'
 
 type Core = typeof core
 

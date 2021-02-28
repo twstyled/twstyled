@@ -84,11 +84,18 @@ export default function RollupPluginFactory(
   const { plugins } = preset(
     { caller: () => babelOptions.caller },
     {
-      outputPath: './src/index.twstyled.css'
+      outputPath: './src/index.twstyled.css',
+      extension: '.twstyled.css'
     }
   )
+
   babelOptions.plugins = [
-    ['@babel/plugin-transform-react-jsx'],
+    [
+      '@babel/plugin-transform-react-jsx',
+      {
+        runtime: 'automatic'
+      }
+    ],
     [
       '@babel/plugin-transform-typescript',
       {

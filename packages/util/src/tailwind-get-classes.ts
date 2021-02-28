@@ -1,6 +1,5 @@
 import tailwindData, { createTwClassDictionary } from '@xwind/core'
-import { getTwConfigCache, getTwConfigPath } from '../config-options'
-import { CorePluginOptions } from '../types'
+import { getTwConfigCache, getTwConfigPath } from '.'
 
 function splitAtLastOccurence(src: string, char: string) {
   const pos = src.lastIndexOf(char)
@@ -20,9 +19,9 @@ function splitAtLastTwoOccurences(src: string, char: string) {
 let $twAttributes: string[]
 let $twVariants: string[]
 
-export default function getTailwindAttributesAndVariants(
-  options: CorePluginOptions
-): [string[], string[]] {
+export default function getTailwindAttributesAndVariants(options: {
+  configPath: string
+}): [string[], string[]] {
   const twConfigPath = getTwConfigPath(options.configPath)
   const { twConfig, isNewTwConfig } = getTwConfigCache(twConfigPath)
 

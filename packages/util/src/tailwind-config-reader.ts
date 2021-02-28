@@ -1,10 +1,11 @@
+import * as path from 'path'
 import importFresh from 'import-fresh'
 import {
   resolveConfig,
   TailwindConfig,
   ResolvedTailwindConfig
 } from '@xwind/core'
-import { getHash, resolvePath, getFile } from '../util/general-utils'
+import { getHash, resolvePath, getFile } from './util'
 
 export function getTwConfigPath(
   relativePath: string | undefined = './tailwind.config.js'

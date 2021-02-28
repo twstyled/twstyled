@@ -6,7 +6,7 @@ import core, {
   mergeObjectstyles,
   transformTwRootToObjectstyle
 } from '@xwind/core'
-import { getTwConfigCache, getTwConfigPath } from '../config-options'
+import { getTwConfigCache, getTwConfigPath } from '@twstyled/util'
 import type { CorePluginState } from '../types'
 
 type TransformerTWX = (

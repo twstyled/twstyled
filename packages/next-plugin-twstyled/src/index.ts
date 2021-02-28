@@ -6,7 +6,7 @@ import {
   Options
 } from './types'
 
-const TWSTYLED_MODULE_EXTENSION = '.twstyled.module.css'
+const TWSTYLED_MODULE_EXTENSION = '.twstyled.css'
 
 /**
  * This is a Next.js plugin that updates webpack postcss options
