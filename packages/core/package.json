@@ -1,7 +1,7 @@
 {
   "name": "@twstyled/core",
-  "version": "3.2.0",
-  "description": "@twstyled/core",
+  "version": "3.2.1",
+  "description": "twstyled -- the full-featured Tailwind CSS + CSS in JS solution with blazing fast build times and no runtime overhead",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -33,12 +33,16 @@
     "access": "public"
   },
   "keywords": [
-    "@twstyled/core",
+    "twstyled",
+    "styled-components",
+    "emotion",
     "nextjs",
     "tailwindcss",
     "xwind",
     "linaria",
     "babel",
-    "novela"
+    "novela",
+    "rollup",
+    "vite"
   ]
 }

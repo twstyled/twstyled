@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-twstyled",
-  "version": "3.2.0",
-  "description": "twstyled -- a vite plugin for Tailwind CSS and compiled CSS in JS",
+  "version": "3.2.1",
+  "description": "Vite plugin for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -22,7 +22,7 @@
     "rollup": "^2.40.0"
   },
   "dependencies": {
-    "@twstyled/babel-preset": "^3.2.0",
+    "@twstyled/babel-preset": "^3.2.1",
     "@babel/core": "^7.13.8",
     "@rollup/pluginutils": "4.1.0",
     "@babel/plugin-transform-react-jsx": "^7.12.17",
@@ -33,12 +33,14 @@
     "access": "public"
   },
   "keywords": [
-    "vite",
-    "rollup",
     "twstyled",
+    "nextjs",
     "tailwindcss",
+    "xwind",
     "linaria",
     "babel",
-    "novela"
+    "novela",
+    "rollup",
+    "vite"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "@twstyled/theme",
-  "version": "3.2.0",
-  "description": "@twstyled/theme",
+  "version": "3.2.1",
+  "description": "Runtime theming support for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -24,8 +24,7 @@
   "dependencies": {
     "deepmerge": "^4.2.2"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
@@ -36,6 +35,8 @@
     "xwind",
     "linaria",
     "babel",
-    "novela"
+    "novela",
+    "rollup",
+    "vite"
   ]
 }

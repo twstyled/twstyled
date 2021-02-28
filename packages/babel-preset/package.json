@@ -1,7 +1,7 @@
 {
   "name": "@twstyled/babel-preset",
-  "version": "3.2.0",
-  "description": "Babel plugin for Tailwind CSS and CSS in JS",
+  "version": "3.2.1",
+  "description": "Babel plugin for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -54,11 +54,14 @@
     "access": "public"
   },
   "keywords": [
-    "webpack",
+    "twstyled",
     "nextjs",
     "tailwindcss",
+    "xwind",
     "linaria",
     "babel",
-    "novela"
+    "novela",
+    "rollup",
+    "vite"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "rollup-plugin-twstyled",
-  "version": "3.2.0",
-  "description": "twstyled -- a rollup plugin for Tailwind CSS and compiled CSS in JS",
+  "version": "3.2.1",
+  "description": "Rollup plugin for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
   "author": "guy@tinia.org",
@@ -21,18 +21,21 @@
     "rollup": "^2.40.0"
   },
   "dependencies": {
-    "vite-plugin-twstyled": "^3.2.0"
+    "vite-plugin-twstyled": "^3.2.1"
   },
   "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
-    "rollup",
     "twstyled",
+    "nextjs",
     "tailwindcss",
+    "xwind",
     "linaria",
     "babel",
-    "novela"
+    "novela",
+    "rollup",
+    "vite"
   ]
 }
