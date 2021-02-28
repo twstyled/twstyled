@@ -1,6 +1,6 @@
 {
   "name": "next-plugin-twstyled",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "twstyled -- a Next.js plugin for Tailwind CSS and static CSS in JS",
   "license": "MIT",
   "repository": "twstyled/twstyled",
@@ -21,7 +21,7 @@
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@twstyled/babel-preset": "^3.2.1"
+    "@twstyled/babel-preset": "^3.2.2"
   },
   "devDependencies": {},
   "publishConfig": {

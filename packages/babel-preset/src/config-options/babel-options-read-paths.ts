@@ -35,10 +35,14 @@ export function getConfigPaths() {
   let baseUrl, paths
   if (jsConfig?.compilerOptions?.baseUrl) {
     baseUrl = jsConfig.compilerOptions.baseUrl
+  } else {
+    baseUrl = dir
   }
 
   if (jsConfig?.compilerOptions?.paths) {
     paths = jsConfig.compilerOptions.paths as Record<string, Array<string>>
+  } else {
+    paths = {}
   }
 
   return {

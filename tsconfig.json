@@ -21,7 +21,7 @@
     "resolveJsonModule": true,
     "outDir": "dist",
     "declaration": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "types": ["@types/stylis", "@types/node"]
   },
   "exclude": [

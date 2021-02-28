@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-twstyled",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Rollup plugin for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
@@ -21,7 +21,7 @@
     "rollup": "^2.40.0"
   },
   "dependencies": {
-    "vite-plugin-twstyled": "^3.2.1"
+    "vite-plugin-twstyled": "^3.2.2"
   },
   "devDependencies": {},
   "publishConfig": {

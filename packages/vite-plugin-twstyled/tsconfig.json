@@ -6,7 +6,8 @@
     "module": "commonjs",
     "rootDir": "src",
     "target": "ES6",
-    "outDir": "dist"
+    "outDir": "dist",
+    "sourceMap": false
   },
   "include": ["src"],
   "exclude": ["node_modules"]
