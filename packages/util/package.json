@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/util",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Utilities, config and class helpers for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
@@ -25,8 +25,7 @@
     "@xwind/class-utilities": "^0.8.0",
     "import-fresh": "^3.3.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },

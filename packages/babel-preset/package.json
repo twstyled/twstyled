@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/babel-preset",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Babel plugin for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
@@ -21,7 +21,7 @@
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@twstyled/util": "^3.2.3",
+    "@twstyled/util": "^3.2.4",
     "stylis": "^4.0.7",
     "mkdirp": "^0.5.1",
     "normalize-path": "^3.0.0",

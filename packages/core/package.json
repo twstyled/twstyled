@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/core",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "twstyled -- the full-featured Tailwind CSS + CSS in JS solution with blazing fast build times and no runtime overhead",
   "license": "MIT",
   "repository": "twstyled/twstyled",
