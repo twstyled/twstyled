@@ -1,6 +1,6 @@
 {
   "name": "@twstyled/theme",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Runtime theming support for twstyled -- the full-featured Tailwind CSS + CSS in JS Compiler",
   "license": "MIT",
   "repository": "twstyled/twstyled",
