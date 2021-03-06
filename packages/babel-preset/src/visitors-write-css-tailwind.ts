@@ -70,6 +70,7 @@ function writeCss(state: CorePluginState, options: CorePluginOptions) {
   $cssFileName = $cssFileName || path.resolve(process.cwd(), options.outputPath)
 
   const cssText = $generate(classes)
+
   if (!doneMkdir) {
     mkdirp.sync(path.dirname($cssFileName))
     doneMkdir = true

@@ -83,20 +83,24 @@ export default function getTailwindCssGenerator(
       .sort(compare)
     const combinedRoot: string[] = []
 
-    for (const twClass of sortedTwClasses) {
-      const [generatedTwClass] = twClassesUtils.generator(twClass)
+    sortedTwClasses.forEach((twClass) => {
+      try {
+        const [generatedTwClass] = twClassesUtils.generator(twClass)
 
-      let generatedTwClassCSS = generatedTwClassesCSS[generatedTwClass]
+        let generatedTwClassCSS = generatedTwClassesCSS[generatedTwClass]
 
-      if (!generatedTwClassCSS) {
-        generatedTwClassCSS = generateTwClassSubstituteRoot(
-          twClassDictionary,
-          twClass
-        ).toString()
-        generatedTwClassesCSS[generatedTwClass] = generatedTwClassCSS
+        if (!generatedTwClassCSS) {
+          generatedTwClassCSS = generateTwClassSubstituteRoot(
+            twClassDictionary,
+            twClass
+          ).toString()
+          generatedTwClassesCSS[generatedTwClass] = generatedTwClassCSS
+        }
+        combinedRoot.push(generatedTwClassCSS)
+      } catch (ex) {
+        console.error(ex.message)
       }
-      combinedRoot.push(generatedTwClassCSS)
-    }
+    })
 
     const preText =
       '/*! Generated with twstyled | https://github.com/twstyled/twstyled */'

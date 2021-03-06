@@ -18,6 +18,19 @@ export default function getBabelOptions(
     babelOptions: {
       plugins: [
         [
+          '@babel/plugin-transform-react-jsx',
+          {
+            runtime: 'automatic'
+          }
+        ],
+        [
+          '@babel/plugin-transform-typescript',
+          {
+            allowNamespaces: true,
+            isTSX: true
+          }
+        ],
+        [
           'babel-plugin-module-resolver',
           {
             root: [baseUrl || './'],
