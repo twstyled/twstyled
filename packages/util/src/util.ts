@@ -8,11 +8,16 @@ export function getHash(source: string) {
 
 export function resolvePath(relativePath: string, message?: string) {
   try {
-    const resolvedConfigPath = path.resolve(
+    let resolvedConfigPath = path.resolve(
       __dirname,
       '../../../../',
       relativePath
     )
+    
+    if ( resolvedConfigPath.indexOf( 'node_modules' ) ) {
+        resolvedConfigPath = path_1.default.resolve( process.cwd(), relativePath )
+    }
+    
     fs.accessSync(resolvedConfigPath)
     return resolvedConfigPath
   } catch (err) {
